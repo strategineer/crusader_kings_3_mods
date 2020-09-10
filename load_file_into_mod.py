@@ -62,7 +62,6 @@ if not filepath_path.exists() or not filepath_path.is_file():
     logging.error(f"Please ensure that {filepath_str} points to an existing file")
     sys.exit(1)
 
-# add param --inc to increment the number starting in front of the file
 destination_filepath = args.filepath
 if args.increment:
     filepath = Path(args.filepath)
