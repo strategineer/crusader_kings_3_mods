@@ -22,8 +22,8 @@ CRUSADER_KINGS_3_MAIN_DIR = "CRUSADER_KINGS_3_MAIN_DIR"
 CRUSADER_KINGS_3_MOD_DIR = "CRUSADER_KINGS_3_MOD_DIR"
 
 mod_name = os.environ.get(CRUSADER_KINGS_3_CURRENT_MOD_NAME, '')
-main_directory_str = os.environ.get(CRUSADER_KINGS_3_MAIN_DIR, '').replace("'", "")
-base_mod_directory_str = os.environ.get(CRUSADER_KINGS_3_MOD_DIR, '').replace("'", "")
+main_directory_str = os.environ.get(CRUSADER_KINGS_3_MAIN_DIR, '').replace(" ", "\\ ")
+base_mod_directory_str = os.environ.get(CRUSADER_KINGS_3_MOD_DIR, '').replace(" ", "\\ ")
 
 if not mod_name:
     logging.error(f"The {CRUSADER_KINGS_3_CURRENT_MOD_NAME} environment variable must be set")

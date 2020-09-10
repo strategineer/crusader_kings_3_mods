@@ -27,7 +27,7 @@ mods = [m for m in mods if m.strip()]
 
 for m in mods:
     from_path = Path(f"{mod_directory_str}/{m}")
-    to_path = Path(f"{repo_directory_str}/{m}")
+    to_path = Path(f"{repo_directory_str}/mods/{m}")
     if args.sync:
         (from_path, to_path) = (to_path, from_path)
     logging.info(f"from '{from_path}' to '{to_path}'")

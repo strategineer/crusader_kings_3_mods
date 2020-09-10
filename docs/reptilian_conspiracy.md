@@ -1,5 +1,5 @@
 # Reptilian Conspiracy Kings
-Reptilian Conspiracy Kings is a Crusaders Kings III mod where the player's ruler is said Alien from Outer Space. You must convert as many humans into Aliens and reveal yourselves to the world by founding the Alienian religion.
+Reptilian Conspiracy Kings is a Crusaders Kings III mod where the player's ruler is said the first reptilian being on the Earth. You must convert as many humans into Reptilians and create a new Reptillian world order.
 ## Specifications
 - Aliens must have an Alien trait (secret?) which provides the following bonuses:
     - People with the Alien trait gain a relationship bonus for other people with the Alien trait and a minor relationship penalty to people without the Alien trait.
@@ -9,4 +9,4 @@ Reptilian Conspiracy Kings is a Crusaders Kings III mod where the player's ruler
     - If a person with the Alien trait makes a new Alien, through any means, they have a chance of getting an increase to each of their stats.
 - Implement a new Alienian religion
 - Through a decision, the player character can decide to convert to the Alienian religion, the cost is lower depending on how many aliens have been created.
-
+- ? figure out if we can use the election system to create a "new world order extra goverment"
