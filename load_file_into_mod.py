@@ -12,8 +12,8 @@ NUMBERED_FILENAME_SPLIT_CHARACTER = "_"
 
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('filepath', help='')
-parser.add_argument('--force', '-f', action="store_true", help='')
-parser.add_argument('--increment', '-i', action="store_true", help='')
+parser.add_argument('--force', '-f', action="store_true", help='Override any existing files')
+parser.add_argument('--increment', '-i', action="store_true", help='Increment the version number on the file so 00_X.txt will be copied as 01_X.txt')
 
 args = parser.parse_args()
 
@@ -65,16 +65,15 @@ if not filepath_path.exists() or not filepath_path.is_file():
 # add param --inc to increment the number starting in front of the file
 destination_filepath = args.filepath
 if args.increment:
-    filename = args.filepath.split("/")[-1]
-    if NUMBERED_FILENAME_SPLIT_CHARACTER in filename:
-        (n, tail) = filename.lsplit(NUMBERED_FILENAME_SPLIT_CHARACTER, 1)
+    filepath = Path(args.filepath)
+    if NUMBERED_FILENAME_SPLIT_CHARACTER in filepath.name:
+        (n, tail) = filepath.name.split(NUMBERED_FILENAME_SPLIT_CHARACTER, 1)
         n = str(int(n) + 1).zfill(len(n))
-        destination_filepath = (args.filepath[0:len(filename)-1] + [f"{n}_{tail}"]).join("")
-
+        destination_filepath = str(filepath.parents[0]) + f"/{n}_{tail}"
 
 destination_filepath_str = f"{mod_directory_str}/{destination_filepath}"
 destination_filepath_path = Path(destination_filepath_str)
-if destination_filepath_path.exists() and not args.force and not filepath_path.read_text() == destination_filepath_path.read_text():
+if destination_filepath_path.exists() and not args.force:
     logging.error(f"File exists at {destination_filepath_str} already, please use the --force/-f parameter if you want to write over it")
     sys.exit(1)
 

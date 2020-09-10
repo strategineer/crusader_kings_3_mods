@@ -10,7 +10,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('comment', help='')
+parser.add_argument('--sync', '-s', action="store_true", help='[DANGEROUS] Copy the files from the REPO to the mod folder')
 
 args = parser.parse_args()
 
@@ -28,5 +28,7 @@ mods = [m for m in mods if m.strip()]
 for m in mods:
     from_path = Path(f"{mod_directory_str}/{m}")
     to_path = Path(f"{repo_directory_str}/{m}")
+    if args.sync:
+        (from_path, to_path) = (to_path, from_path)
     logging.info(f"from '{from_path}' to '{to_path}'")
     sync(from_path, to_path, "sync", create=True)
