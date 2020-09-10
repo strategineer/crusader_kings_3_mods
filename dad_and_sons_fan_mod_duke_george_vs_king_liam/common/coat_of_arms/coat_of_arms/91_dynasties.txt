@@ -1,0 +1,10 @@
+752 = {
+	pattern = "pattern_solid.dds"
+	color1 = "white"
+    color2 = "yellow" 
+	colored_emblem = {
+		texture = "ce_dnd.dds"
+		color1 = "red"
+		color2 = "green"
+	}
+}
