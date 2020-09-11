@@ -921,7 +921,7 @@
  trait_kinslayer:0 "Kinslayers"
 
  # MOD START
- trait_reptilian_character_desc:0 "[ROOT.GetCharacter.GetFirstNameNoTooltip] is a lizard person, destined to install a lizard-first new world order. As a reptilian, [ROOT.GetCharacter.GetSheHe] is just a little bit better than non-reptilians."
+ trait_reptilian_character_desc:0 "[ROOT.GetCharacter.GetFirstNameNoTooltip] is a reptoid, destined to bring forth a reptilian-first new world order on Earth. As a reptilian, [ROOT.GetCharacter.GetSheHe] is just a little bit better than [ROOT.GetCharacter.GetHerHis] non-reptilian counterparts."
  trait_reptilian_male:0 "Reptilian"
  trait_reptilian_female:0 "Reptilian"
  # MOD END
