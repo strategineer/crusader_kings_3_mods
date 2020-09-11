@@ -26,9 +26,18 @@ mods = modlist.read_text().split('\n')
 mods = [m for m in mods if m.strip()]
 
 for m in mods:
+    # Copy mod files.
     from_path = Path(f"{mod_directory_str}/{m}")
     to_path = Path(f"{repo_directory_str}/mods/{m}")
     if args.sync:
         (from_path, to_path) = (to_path, from_path)
     logging.info(f"from '{from_path}' to '{to_path}'")
     sync(from_path, to_path, "sync", create=True)
+
+    # Copy .mod file.
+    dot_mod_from_path = Path(f"{mod_directory_str}/{m}.mod")
+    dot_mod_to_path = Path(f"{repo_directory_str}/mods/{m}.mod")
+    if args.sync:
+        (dot_mod_from_path, dot_mod_to_path) = (dot_mod_to_path, dot_mod_from_path)
+    logging.info(f"from '{dot_mod_from_path}' to '{dot_mod_to_path}'")
+    copyfile(dot_mod_from_path, dot_mod_to_path)

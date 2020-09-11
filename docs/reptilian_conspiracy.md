@@ -7,9 +7,18 @@ Reptilian Conspiracy Kings is a Crusaders Kings III mod where the player's ruler
     - A person with the Reptilian trait may start a difficult scheme to add the Reptilian trait to a person without the trait.
     - If a person with the Reptilian trait makes a new Reptilian, through any means, they should be reward for it in someway
 - Through a decision, the player character can decide to make their ruler a Reptilian.
-- Progression?
-- Events?
+- ? Progression
+- ? Events
+    - Talk to another lizard person to make plans to further the reptilian agenda
+    - ...
 - ? figure out if we can use the election system to create a "new world order extra goverment"
+- ? MLM/Pyramid Scheme style system which rewards the progenitors of other lizards-people
+- ? Expand new world order idea
+    - event chain?
+    - in game election system to determine leader of the reptilians on earth?
+    - religion?
+- ? new Casus Belli -> turn the concquered ruler and their court all into shapeshifting lizard people
+
 
 ## Bugs
 - Turn Reptilian Scheme is copied from the Abduct scheme and lacks its own flavor (also I need to account for the special case where the target is in my prison or in another prison, I should probably disable turning a person in another prison into a reptilian)
