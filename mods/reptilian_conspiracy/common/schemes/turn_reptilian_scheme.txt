@@ -21,9 +21,10 @@
 	}
 
 	valid = {
-		NOT = { has_trait = reptilian }
+		has_trait = reptilian
 		scope:target = {
 			exists = location
+			NOT = { has_trait = reptilian }
 		}
 	}
 

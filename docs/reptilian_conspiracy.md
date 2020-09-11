@@ -13,3 +13,4 @@ Reptilian Conspiracy Kings is a Crusaders Kings III mod where the player's ruler
 
 ## Bugs
 - Turn Reptilian Scheme is copied from the Abduct scheme and lacks its own flavor (also I need to account for the special case where the target is in my prison or in another prison, I should probably disable turning a person in another prison into a reptilian)
+- Turn Reptilian Scheme is way too hard and takes way too long (probably because I based it on the abduct scheme?, check with different intrigue stats and councilors? although the councilor shouldn't have an impact unless they are a reptilian)

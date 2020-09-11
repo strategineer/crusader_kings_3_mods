@@ -1,0 +1,107 @@
+﻿#Character interactions relating to schemes
+
+start_turn_reptilian = {
+	interface_priority = 95
+	category = interaction_category_hostile
+
+	send_name = START_SCHEME
+
+	scheme = turn_reptilian
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = { has_trait = reptilian }
+		NOT = {
+			scope:recipient = scope:actor
+		}
+		NOT = {
+			scope:recipient = { has_trait = reptilian }
+		}
+		NAND = { # Game Rules!
+			has_game_rule = no_players_multiplayer_murder_schemes
+			scope:actor = {
+				is_ai = no
+			}
+			scope:recipient = {
+				is_ai = no
+			}
+		}
+
+		NAND = {
+			has_game_rule = no_player_families_multiplayer_murder_schemes
+			scope:actor = {
+				is_ai = no
+			}
+			scope:recipient = {
+				OR = {
+					is_ai = no
+					any_close_family_member = {
+						AND = {
+							is_ai = no
+							NOT = { this = scope:actor }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		scope:actor = {
+			can_start_scheme = {
+				type = turn_reptilian
+				target = scope:recipient
+			}
+		}
+		scope:recipient = { NOT = { has_strong_hook = scope:actor } }
+	}
+
+	desc = {
+		triggered_desc = {
+			trigger = {
+				scope:actor = {
+					can_start_scheme = {
+						type = turn_reptilian
+						target = scope:recipient
+					}
+				}
+			}
+			desc = scheme_interaction_tt_turn_reptilian_approved
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			stress_impact = {
+				compassionate = medium_stress_impact_gain
+				honest = minor_stress_impact_gain
+				just = minor_stress_impact_gain
+			}
+		}
+		hidden_effect = {
+			scope:actor = {
+				send_interface_toast = {
+					title = start_turn_reptilian_notification
+
+					left_icon = scope:actor
+					right_icon = scope:recipient
+
+					start_scheme = {
+						type = turn_reptilian
+						target = scope:recipient
+					}
+
+					show_as_tooltip = {
+						stress_impact = {
+							compassionate = medium_stress_impact_gain
+							honest = minor_stress_impact_gain
+							just = minor_stress_impact_gain
+						}
+					}
+				}
+			}
+		}
+	}
+
+	auto_accept = yes
+}
