@@ -3,9 +3,11 @@
 	skill = intrigue
 	hostile = yes
 
-	power_per_skill_point = 3.0
+	power_per_skill_point = 6.0
 	resistance_per_skill_point = 1.0
 	power_per_agent_skill_point = 2
+
+	# TODO(strategineer): make this easier and quicker when the player has created more lizards so that it can ramp up
 
 	minimum_progress_chance = 10
 	maximum_progress_chance = 90
