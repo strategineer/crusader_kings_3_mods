@@ -1,0 +1,36 @@
+﻿# MOD START
+become_reptilian_decision = {
+	picture = "gfx/interface/illustrations/decisions/decision_recruitment.dds"
+
+	desc = become_reptilian_decision_desc
+	selection_tooltip = become_reptilian_decision_tooltip
+
+	ai_check_interval = 0
+
+	is_shown = {
+		NOT  = { has_trait = reptilian }
+	}
+
+	is_valid_showing_failures_only = {
+		is_available = yes
+	}
+
+	effect = {
+		add_trait = reptilian
+		#trigger_event = {
+			#id = health.3923
+			#days = 1
+		#}
+		custom_tooltip = become_reptilian_decision_effect_tooltip
+
+	}
+
+	ai_potential = {
+		always = no
+	}
+
+	ai_will_do = {
+		base = 0
+	}
+}
+# MOD END

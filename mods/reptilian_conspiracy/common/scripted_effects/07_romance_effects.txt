@@ -1,0 +1,270 @@
+﻿
+#####################################################################
+# EFFECT LIST
+#####################################################################
+# !!! Remember to add all new effects with a short description here !!!
+
+#####################################################################
+# EFFECTS
+#####################################################################
+had_sex_with_effect = {
+	save_temporary_scope_as = had_sex_root_character
+	$CHARACTER$ = { save_scope_as = had_sex_with_effect_partner }
+
+	if = {
+		limit = { this = root }
+		custom_tooltip = had_sex_with_effect.first_person.tt
+	}
+	else_if = {
+		limit = { root = scope:had_sex_with_effect_partner }
+		custom_tooltip = had_sex_with_effect.other_person.tt
+	}
+	else = {
+		custom_tooltip = had_sex_with_effect.third_person.tt
+	}
+
+
+	#Stress
+	$CHARACTER$ = {
+		if = {
+			limit = { this = root }
+			stress_impact = {
+				lustful = minor_stress_impact_loss
+				rakish = minor_stress_impact_loss
+			}
+		}
+		else = {
+			hidden_effect = {
+				stress_impact = {
+					lustful = minor_stress_impact_loss
+					rakish = minor_stress_impact_loss
+				}
+			}
+		}
+	}
+	if = {
+		limit = { this = root }
+		stress_impact = {
+			lustful = minor_stress_impact_loss
+			rakish = minor_stress_impact_loss
+		}
+	}
+	else = {
+		hidden_effect = {
+			stress_impact = {
+				lustful = minor_stress_impact_loss
+				rakish = minor_stress_impact_loss
+			}
+		}
+	}
+
+
+	#Pregnancy & story cycles
+	hidden_effect = {
+		if = {
+			limit = {
+				is_female = yes
+				$CHARACTER$ = { is_male = yes }
+			}
+			if = {
+				limit = {
+					is_pregnant = no
+					age < define:NChildbirth|MAX_FEMALE_REPRODUCTION_AGE
+				}
+				add_to_variable_list = {
+					name = potential_father_variable_list
+					target = $CHARACTER$
+				}
+				random = {
+					chance = $PREGNANCY_CHANCE$
+					make_pregnant = {
+						father = $CHARACTER$
+					}
+				}
+				if = {
+					limit = {
+						NOT = { has_character_flag = had_story_cycle_peasant_affair }
+						is_ruler = yes
+						$CHARACTER$ = {
+							is_lowborn = yes
+							is_landed = no
+							is_courtier = no
+						}
+					}
+					set_variable = {
+						name = story_peasant_affair_target
+						value = $CHARACTER$
+					}
+					create_story = story_peasant_affair
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				is_male = yes
+				$CHARACTER$ = { is_female = yes }
+			}
+			if = {
+				limit = {
+					NOT = { $CHARACTER$ = { has_trait = pregnant } }
+				}
+				$CHARACTER$ = {
+					add_to_variable_list = {
+						name = potential_father_variable_list
+						target = scope:had_sex_root_character
+					}
+				}
+				if = {
+					limit = {
+						NOT = { has_character_flag = had_story_cycle_peasant_affair }
+						is_ruler = yes
+						$CHARACTER$ = {
+							is_lowborn = yes
+							is_landed = no
+							is_courtier = no
+						}
+					}
+					set_variable = {
+						name = story_peasant_affair_target
+						value = $CHARACTER$
+					}
+					$CHARACTER$ = {
+						if = {
+							limit = {
+								is_pregnant = no
+								age < define:NChildbirth|MAX_FEMALE_REPRODUCTION_AGE
+							}
+							random = {
+								chance = $PREGNANCY_CHANCE$
+								add_character_flag = {
+									flag = peasant_is_pregnant
+									days = 560
+								}
+							}
+						}
+					}
+					create_story = story_peasant_affair
+				}
+				else_if = {
+					limit = {
+						$CHARACTER$ = {
+							is_pregnant = no
+							age < define:NChildbirth|MAX_FEMALE_REPRODUCTION_AGE
+						}
+					}
+					$CHARACTER$ = {
+						random = {
+							chance = $PREGNANCY_CHANCE$
+							make_pregnant = {
+								father = scope:had_sex_root_character
+							}
+						}
+					}
+				}
+			}
+		}
+
+		#STD transmission
+		risk_of_std_from_effect = { PARTNER = $CHARACTER$ }
+		hidden_effect = {
+			$CHARACTER$ = { risk_of_std_from_effect = { PARTNER = scope:had_sex_root_character } }
+		}
+
+        # MOD START
+        #Reptilian transmission
+        risk_of_reptilian_from_effect = { PARTNER = $CHARACTER$ }
+        hidden_effect = {
+            $CHARACTER$ = { risk_of_reptilian_from_effect = { PARTNER = scope:had_sex_root_character } }
+        }
+        # MOD END
+
+		#Adultery suspicion
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						is_married = yes
+						is_concubine = yes
+					}
+					NOT = { any_consort = { this = $CHARACTER$ } }
+				}
+				set_variable = {
+					name = had_recent_sex_with
+					value = $CHARACTER$
+					days = 1000
+				}
+				random = {
+					chance = 50 #This should be quite high as there is a chance that adultery.0001 "fails" i.e. spouse doesn't realize
+					every_relation = {
+						type = soulmate
+						limit = {
+							NOT = { this = $CHARACTER$ } #Soulmates should not grow suspicous of adulterous affairs after sleeping with their lover
+						}
+						add_to_temporary_list = partners_1
+					}
+					every_consort = {
+						add_to_temporary_list = partners_1
+					}
+					random_in_list = {
+						list = partners_1
+						limit = { is_ai = no }
+						alternative_limit = { always = yes }
+						trigger_event = {
+							id = adultery.0001
+							days = { 14 365 }
+						}
+					}
+				}
+			}
+			$CHARACTER$ = {
+				if = {
+					limit = {
+						OR = {
+							is_married = yes
+							is_concubine = yes
+						}
+						NOT = { any_consort = { this = scope:had_sex_root_character }}
+					}
+					set_variable = {
+						name = had_recent_sex_with
+						value = scope:had_sex_root_character
+						days = 1000
+					}
+					random = {
+						chance = 50 #This should be quite high as there is a chance that adultery.0001 "fails" i.e. spouse doesn't realize
+						every_relation = {
+							type = soulmate
+							limit = {
+								NOT = { this = scope:had_sex_root_character } #Soulmates should not grow suspicous of adulterous affairs after sleeping with their lover
+							}
+							add_to_temporary_list = partners_2
+						}
+						every_consort = {
+							add_to_temporary_list = partners_2
+						}
+						random_in_list = {
+							list = partners_2
+							limit = { is_ai = no }
+							alternative_limit = { always = yes }
+							trigger_event = {
+								id = adultery.0001
+								days = { 14 365 }
+							}
+						}
+					}
+				}
+			}
+		}
+		#Incestuous Relations
+		give_incest_secret_or_nothing_with_target_effect = { CHARACTER = $CHARACTER$ }
+		hidden_effect = {
+			$CHARACTER$ = { give_incest_secret_or_nothing_with_target_effect = { CHARACTER = scope:had_sex_root_character } }
+		}
+
+		#Homosexuality
+		give_homosexual_secret_or_nothing_with_target_effect = { CHARACTER = $CHARACTER$ }
+		hidden_effect = {
+			$CHARACTER$ = { give_homosexual_secret_or_nothing_with_target_effect = { CHARACTER = scope:had_sex_root_character } }
+		}
+	}
+}
