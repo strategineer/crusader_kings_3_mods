@@ -14,4 +14,3 @@ Reptilian Conspiracy Kings is a Crusaders Kings III mod where the player's ruler
 
 ## Bugs
 - Having "relations" doesn't transmit the Reptilian trait like it should (having kids does give it to them though!)
-- No icon for the reptilian trait
